@@ -591,6 +591,8 @@ const handleSubmit = async (e) => {
         </div>
       </section>
       {/* About Section */}
+
+      <section id= "about"            className="py-20 bg-slate-50">
       <section className="py-32 bg-gradient-to-b from-white via-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
@@ -667,7 +669,7 @@ const handleSubmit = async (e) => {
         </motion.div>
       </div>
     </section>
-
+    </section>
       {/* Skills Section */}
       <section id="skills" className="py-20 bg-slate-50">
         <div className="container mx-auto px-6">
