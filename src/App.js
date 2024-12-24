@@ -15,8 +15,22 @@ import cert2 from './images/cert2.png';
 import cert3 from './images/cert3.png';
 import cert4 from './images/cert4.png';
 import { db, addDoc, collection } from "./firebase";  // Importing Firebase methods
-
 import { Mail, GithubIcon, LucideFacebook, LucideTwitter, InstagramIcon } from 'lucide-react';
+import BlobCursor from './components/BlobCursor/BlobCursor';
+
+import { 
+  HiCode, 
+  HiBadgeCheck, 
+  HiLightningBolt, 
+  HiAcademicCap, 
+  HiHeart, 
+  HiUserGroup,
+  HiChip,
+  HiCube,
+  HiSparkles,
+  HiClock
+} from 'react-icons/hi';
+
 
 // Add SkillCard component
 const SkillCard = ({ title, skills }) => (
@@ -88,6 +102,53 @@ const CertModal = ({ isOpen, onClose, certification }) => (
     )}
   </AnimatePresence>
 );
+
+const quickFacts = [
+  {
+    icon: HiCode,
+    title: "Full Stack Developer",
+    description: "Specialized in modern web technologies",
+    color: "bg-blue-500"
+  },
+  {
+    icon: HiBadgeCheck,
+    title: "Certified Professional",
+    description: "Multiple technical certifications",
+    color: "bg-purple-500"
+  },
+  {
+    icon: HiChip,
+    title: "Problem Solver",
+    description: "Analytical and creative solutions",
+    color: "bg-green-500"
+  },
+  {
+    icon: HiLightningBolt,
+    title: "Fast Learner",
+    description: "Adaptable to new technologies",
+    color: "bg-yellow-500"
+  },
+  {
+    icon: HiHeart,
+    title: "Passionate Coder",
+    description: "Love for clean, efficient code",
+    color: "bg-red-500"
+  },
+  {
+    icon: HiUserGroup,
+    title: "Team Player",
+    description: "Excellent collaboration skills",
+    color: "bg-indigo-500"
+  }
+];
+
+const stats = [
+  { icon: HiClock, number: "1+", label: "Years Experience" },
+  { icon: HiCube, number: "3+", label: "Projects Completed" },
+  { icon: HiUserGroup, number: "30+", label: "Happy Clients" },
+  { icon: HiSparkles, number: "100%", label: "Client Satisfaction" }
+];
+
 const ProjectCard = ({ image, title, description, tools, githubLink, liveLink }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -388,7 +449,11 @@ const handleSubmit = async (e) => {
   };
 
   return (
+
+  
+  
     <div className="min-h-screen bg-slate-50">
+    <BlobCursor/>
     <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -525,75 +590,83 @@ const handleSubmit = async (e) => {
           </motion.div>
         </div>
       </section>
-
       {/* About Section */}
-      <section id="about" className="py-20 bg-white">
-        {/* Your existing about section code... */}
-        <div className="container mx-auto px-6">
+      <section className="py-32 bg-gradient-to-b from-white via-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-4xl font-bold tracking-tight mb-4">About Me</h2>
+          <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full mb-6"></div>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Passionate about creating innovative solutions and delivering exceptional digital experiences
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto space-y-8"
+            className="col-span-full lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
           >
-            <div className="text-center space-y-4">
-              <h2 className="text-4xl font-bold text-slate-800">About Me</h2>
-              <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="space-y-4"
-              >
-                <h3 className="text-2xl font-semibold text-slate-800">
-                  Passionate Developer & Problem Solver
-                </h3>
-                <p className="text-slate-600 leading-relaxed">
-                  With a deep passion for web development and a keen eye for detail, I specialize in creating seamless, user-centric digital experiences. My journey in technology began with a curiosity about how things work, which evolved into a career dedicated to building innovative solutions.
-                </p>
-                <p className="text-slate-600 leading-relaxed">
-                  I combine technical expertise with creative problem-solving to deliver robust and scalable applications. Whether it's front-end development, back-end architecture, or full-stack solutions, I'm committed to writing clean, efficient code that makes a difference.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="space-y-4 bg-slate-50 p-6 rounded-xl shadow-lg"
-              >
-                <h3 className="text-2xl font-semibold text-slate-800">
-                  Quick Facts
-                </h3>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-                    <span className="text-slate-600">Full Stack Web Developer</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-                    <span className="text-slate-600">Certiport Certified Professional</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-                    <span className="text-slate-600">Problem-Solving Enthusiast</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-                    <span className="text-slate-600">Continuous Learner</span>
-                  </li>
-                </ul>
-              </motion.div>
+            <h3 className="text-2xl font-bold mb-6">Passionate Developer & Problem Solver</h3>
+            <div className="space-y-4 text-gray-600">
+              <p>
+                With over 5 years of experience in web development, I've cultivated a deep understanding
+                of both front-end and back-end technologies. My approach combines technical expertise
+                with creative problem-solving to build scalable, user-centric applications.
+              </p>
+              <p>
+                I thrive on challenging projects that push the boundaries of what's possible in web
+                development, always staying current with the latest technologies and best practices
+                in the field.
+              </p>
             </div>
           </motion.div>
+
+          {quickFacts.map((fact, index) => (
+            <motion.div
+              key={fact.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300"
+            >
+              <div className={`w-12 h-12 ${fact.color} rounded-xl flex items-center justify-center mb-4`}>
+                <fact.icon className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{fact.title}</h3>
+              <p className="text-gray-600">{fact.description}</p>
+            </motion.div>
+          ))}
         </div>
-      </section>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center"
+        >
+          {stats.map((stat, index) => (
+            <div key={index} className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+              <div className="flex items-center justify-center mb-2">
+                <stat.icon className="w-6 h-6 text-blue-600" />
+              </div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">{stat.number}</div>
+              <div className="text-gray-600 text-sm">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
 
       {/* Skills Section */}
       <section id="skills" className="py-20 bg-slate-50">
@@ -624,6 +697,7 @@ const handleSubmit = async (e) => {
           </motion.div>
         </div>
       </section>
+  
 
        {/* Projects Section */}
        <section id="projects" className="py-20 bg-white">
@@ -789,7 +863,9 @@ const handleSubmit = async (e) => {
           </div>
         </div>
       </div>
+      
     </section>
+
 
 
       {/* Certificate Modal */}
@@ -799,7 +875,7 @@ const handleSubmit = async (e) => {
         certification={selectedCert}
       />
     </div>
- 
+    
   );
 };
 
