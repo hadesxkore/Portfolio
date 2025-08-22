@@ -1,10 +1,50 @@
 import React, { useEffect, useState  } from 'react';
 import { motion, AnimatePresence  } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 import kobieImage from './images/kobie.png';
 import { Github, ExternalLink } from 'lucide-react';
-import system1 from './images/System1.png';
-import system2 from './images/System2.png';
-import system3 from './images/System3.png';
+// Import project images
+import pgoInventory1 from './images/pgoInventorySystem/1.png';
+import pgoInventory2 from './images/pgoInventorySystem/2.png';
+import pgoInventory3 from './images/pgoInventorySystem/3.png';
+import pgoInventory4 from './images/pgoInventorySystem/4.png';
+import pgoInventory5 from './images/pgoInventorySystem/5.png';
+import pgoInventory6 from './images/pgoInventorySystem/6.png';
+import pgoInventory7 from './images/pgoInventorySystem/7.png';
+
+import pgoScheduler1 from './images/pgoEventScheduler/1.png';
+import pgoScheduler2 from './images/pgoEventScheduler/2.png';
+import pgoScheduler3 from './images/pgoEventScheduler/3.png';
+import pgoScheduler4 from './images/pgoEventScheduler/4.png';
+import pgoScheduler5 from './images/pgoEventScheduler/5.png';
+import pgoScheduler6 from './images/pgoEventScheduler/6.png';
+import pgoScheduler7 from './images/pgoEventScheduler/7.png';
+import pgoScheduler8 from './images/pgoEventScheduler/8.png';
+import pgoScheduler9 from './images/pgoEventScheduler/9.png';
+import pgoScheduler10 from './images/pgoEventScheduler/10.png';
+
+import pgoDocument1 from './images/pgoDocumentFileSharing/1.png';
+import pgoDocument2 from './images/pgoDocumentFileSharing/2.png';
+import pgoDocument3 from './images/pgoDocumentFileSharing/3.png';
+import pgoDocument4 from './images/pgoDocumentFileSharing/4.png';
+import pgoDocument5 from './images/pgoDocumentFileSharing/5.png';
+
+import salesInventory1 from './images/SalesInventory/1.png';
+import salesInventory2 from './images/SalesInventory/2.png';
+import salesInventory3 from './images/SalesInventory/3.png';
+import salesInventory4 from './images/SalesInventory/4.png';
+import salesInventory5 from './images/SalesInventory/5.png';
+import salesInventory6 from './images/SalesInventory/6.png';
+import salesInventory7 from './images/SalesInventory/7.png';
+import salesInventory8 from './images/SalesInventory/8.png';
+import salesInventory9 from './images/SalesInventory/9.png';
+import salesInventory10 from './images/SalesInventory/10.png';
+import salesInventory11 from './images/SalesInventory/11.png';
 import { X } from 'lucide-react';
 import badge1 from './images/badge1.png';
 import badge2 from './images/badge2.png';
@@ -106,111 +146,215 @@ const CertModal = ({ isOpen, onClose, certification }) => (
 const quickFacts = [
   {
     icon: HiCode,
-    title: "Full Stack Developer",
-    description: "Specialized in modern web technologies",
+    title: "Web Developer",
+    description: "Learning modern web technologies",
     color: "bg-blue-500"
   },
   {
     icon: HiBadgeCheck,
-    title: "Certified Professional",
-    description: "Multiple technical certifications",
+    title: "Certified",
+    description: "Growing technical expertise",
     color: "bg-purple-500"
   },
   {
     icon: HiChip,
-    title: "Problem Solver",
-    description: "Analytical and creative solutions",
+    title: "Tech Enthusiast",
+    description: "Eager to learn and improve",
     color: "bg-green-500"
   },
   {
     icon: HiLightningBolt,
-    title: "Fast Learner",
-    description: "Adaptable to new technologies",
+    title: "Quick Learner",
+    description: "Always ready to learn new skills",
     color: "bg-yellow-500"
   },
   {
     icon: HiHeart,
-    title: "Passionate Coder",
-    description: "Love for clean, efficient code",
+    title: "Passionate",
+    description: "Dedicated to quality work",
     color: "bg-red-500"
   },
   {
     icon: HiUserGroup,
-    title: "Team Player",
-    description: "Excellent collaboration skills",
+    title: "Collaborative",
+    description: "Great team communication",
     color: "bg-indigo-500"
   }
 ];
 
 const stats = [
-  { icon: HiClock, number: "1+", label: "Years Experience" },
-  { icon: HiCube, number: "3+", label: "Projects Completed" },
-  { icon: HiUserGroup, number: "30+", label: "Happy Clients" },
+  { icon: HiClock, number: "2+", label: "Years Experience" },
+  { icon: HiCube, number: "8+", label: "Projects Completed" },
+  { icon: HiUserGroup, number: "15+", label: "Happy Clients" },
   { icon: HiSparkles, number: "100%", label: "Client Satisfaction" }
 ];
 
-const ProjectCard = ({ image, title, description, tools, githubLink, liveLink }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    viewport={{ once: true }}
-    className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-  >
-    {/* Project Image */}
-    <div className="relative overflow-hidden group h-48">
-      <img 
-        src={image} 
-        alt={title} 
-        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </div>
+// Image Gallery Modal Component
+const ImageGalleryModal = ({ isOpen, onClose, images, title, currentImageIndex: initialIndex = 0 }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(initialIndex);
 
-    {/* Content */}
-    <div className="p-6 space-y-4">
-      <h3 className="text-2xl font-semibold text-slate-800">{title}</h3>
-      <p className="text-slate-600">{description}</p>
+  if (!isOpen) return null;
 
-      {/* Tools Used */}
-      <div className="space-y-2">
-        <h4 className="text-sm font-semibold text-slate-700">Tools Used:</h4>
-        <div className="flex flex-wrap gap-2">
-          {tools.map((tool, index) => (
-            <span 
-              key={index}
-              className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-8 bg-black/90 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="relative max-w-3xl w-full bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl"
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+        >
+          <X size={20} />
+        </button>
+
+        {/* Title */}
+        <div className="absolute top-4 left-4 z-50">
+          <h3 className="text-xl font-medium text-white drop-shadow-lg">
+            {title}
+          </h3>
+          <p className="text-white/80 text-sm">
+            Image {currentImageIndex + 1} of {images.length}
+          </p>
+        </div>
+
+        {/* Main Image */}
+        <div className="relative aspect-[16/9] bg-black/30">
+          <motion.img
+            key={currentImageIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            src={images[currentImageIndex]}
+            alt={`${title} screenshot ${currentImageIndex + 1}`}
+            className="w-full h-full object-contain"
+          />
+          
+          {/* Navigation Buttons */}
+          <div className="absolute inset-x-4 inset-y-0 flex items-center justify-between pointer-events-none">
+            <button
+              onClick={prevImage}
+              className="w-10 h-10 rounded-full bg-black/50 text-white shadow-lg flex items-center justify-center pointer-events-auto hover:bg-black/70 transition-all transform hover:scale-105"
             >
-              {tool}
-            </span>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextImage}
+              className="w-10 h-10 rounded-full bg-black/50 text-white shadow-lg flex items-center justify-center pointer-events-auto hover:bg-black/70 transition-all transform hover:scale-105"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Thumbnails */}
+        <div className="flex gap-2 p-4 bg-black/30 overflow-x-auto">
+          {images.map((img, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`relative flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 
+                ${currentImageIndex === index 
+                  ? 'ring-2 ring-white ring-offset-1 ring-offset-black/50' 
+                  : 'opacity-50 hover:opacity-75'}`}
+            >
+              <img 
+                src={img} 
+                alt={`Thumbnail ${index + 1}`} 
+                className="w-full h-full object-cover" 
+              />
+            </button>
           ))}
         </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const ProjectCard = ({ image, title, description, tools, githubLink, liveLink, galleryImages, onOpenGallery }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+    >
+      {/* Project Image */}
+      <div className="relative overflow-hidden group h-56 rounded-t-xl">
+        <img 
+          src={image} 
+          alt={title} 
+          className="w-full h-full object-cover object-top transition-all duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300" />
       </div>
 
-      {/* Links */}
-      <div className="flex gap-4 pt-4">
-        <a
-          href={githubLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors"
-        >
-          <Github size={20} />
-          <span>Code</span>
-        </a>
-        <a
-          href={liveLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors"
-        >
-          <ExternalLink size={20} />
-          <span>Live Demo</span>
-        </a>
+      {/* Content */}
+      <div className="p-6 space-y-4">
+        <h3 className="text-2xl font-semibold text-slate-800">{title}</h3>
+        <p className="text-slate-600">{description}</p>
+
+        {/* Tools Used */}
+        <div className="space-y-2">
+          <h4 className="text-sm font-semibold text-slate-700">Tools Used:</h4>
+          <div className="flex flex-wrap gap-2">
+            {tools.map((tool, index) => (
+              <span 
+                key={index}
+                className="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Links */}
+        <div className="flex gap-4 pt-4">
+          <a
+            href={githubLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            <Github size={20} />
+            <span>Code</span>
+          </a>
+          <button
+            onClick={() => onOpenGallery({ images: galleryImages, title })}
+            className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors"
+          >
+            <ExternalLink size={20} />
+            <span>View Sample Images</span>
+          </button>
+        </div>
       </div>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
 
 // Certificate Card Component
 const CertificationCard = ({ certification, onView }) => (
@@ -256,8 +400,15 @@ const App = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [selectedCert, setSelectedCert] = useState(null);
+  
+  // Gallery state
+  const [galleryState, setGalleryState] = useState({
+    isOpen: false,
+    images: [],
+    title: '',
+    currentImageIndex: 0
+  });
 
   
   const NavLink = ({ href, children, mobile }) => (
@@ -395,56 +546,65 @@ const handleSubmit = async (e) => {
     });
   }, []);
 
-  // Sample projects data
+  // Projects data
   const projectsData = [
     {
-      image: system1,
-      title: "Warehouse Rental Management System",
-      description: "A comprehensive dashboard for managing online store operations with real-time analytics and inventory tracking.",
-      tools: ["React", "Node.js", "Firebase", "TailwindCSS"],
-      githubLink: "https://github.com/yourusername/project1",
-      liveLink: "https://new-warehouse.vercel.app/"
+      image: pgoInventory1,
+      title: "PGO - Inventory System",
+      description: "A comprehensive inventory management system for PGO with real-time tracking, stock management, and analytics dashboard.",
+      tools: ["React + Vite", "TailwindCSS", "Shadcn/ui", "Framer Motion", "Firebase", "Node.js", "Cloudinary"],
+      githubLink: "https://github.com/hadesxkore254/pgo-inventory",
+      galleryImages: [pgoInventory1, pgoInventory2, pgoInventory3, pgoInventory4, pgoInventory5, pgoInventory6, pgoInventory7]
     },
     {
-      image: system2,
-      title: "Student Faculty Evaluation System",
-      description: "A collaborative task management platform with real-time updates and team collaboration features.",
-      tools: ["React", "Firebase", "Material-UI", "Redux", "TailwindCSS"],
-      githubLink: "https://github.com/yourusername/project2",
-      liveLink: "https://grade-evaluation-alpha.vercel.app"
+      image: pgoScheduler1,
+      title: "PGO - Event Scheduler",
+      description: "Dynamic event scheduling and management system with calendar integration, notifications, and team collaboration features.",
+      tools: ["React + Vite", "TailwindCSS", "Shadcn/ui", "GRASP", "Supabase", "Node.js"],
+      githubLink: "https://github.com/hadesxkore254/pgo-scheduler",
+      galleryImages: [pgoScheduler1, pgoScheduler2, pgoScheduler3, pgoScheduler4, pgoScheduler5, pgoScheduler6, pgoScheduler7, pgoScheduler8, pgoScheduler9, pgoScheduler10]
     },
     {
-      image: system3,
-      title: "Personal Task Management System",
-      description: "An interactive platform for online education with course management and progress tracking.",
-      tools: ["React", "Express", "PostgreSQL", "WebSocket"],
-      githubLink: "https://github.com/yourusername/project3",
-      liveLink: "https://project3-demo.com"
+      image: pgoDocument1,
+      title: "PGO - Document File Sharing System",
+      description: "Secure document management and file sharing platform with role-based access control and version tracking.",
+      tools: ["React + Vite", "TailwindCSS", "Framer Motion", "Firebase", "Cloudinary"],
+      githubLink: "https://github.com/hadesxkore254/pgo-fileshare",
+      galleryImages: [pgoDocument1, pgoDocument2, pgoDocument3, pgoDocument4, pgoDocument5]
+    },
+    {
+      image: salesInventory1,
+      title: "Sales Inventory System",
+      description: "Complete sales and inventory management solution with POS integration, stock tracking, and sales analytics.",
+      tools: ["React + Vite", "TailwindCSS", "Shadcn/ui", "Supabase", "Node.js"],
+      githubLink: "https://github.com/hadesxkore254/sales-inventory",
+      galleryImages: [salesInventory1, salesInventory2, salesInventory3, salesInventory4, salesInventory5, salesInventory6, salesInventory7, salesInventory8, salesInventory9, salesInventory10, salesInventory11]
     }
   ];
 
   // Sample skills data
   const skillsData = {
     frontend: [
-      { name: 'React.js', percentage: 85 },
-      { name: 'HTML/CSS', percentage: 90 },
-      { name: 'JavaScript', percentage: 85 },
-      { name: 'Tailwind CSS', percentage: 80 },
-      { name: 'TypeScript', percentage: 75 }
+      { name: 'Next.js', percentage: 85 },
+      { name: 'React.js', percentage: 90 },
+      { name: 'TypeScript', percentage: 85 },
+      { name: 'Tailwind CSS', percentage: 90 },
+      { name: 'Framer Motion', percentage: 85 },
+      { name: 'Zustand', percentage: 80 }
     ],
     backend: [
-      { name: 'Node.js', percentage: 80 },
-      { name: 'Python', percentage: 75 },
-      { name: 'MySQL', percentage: 85 },
-      { name: 'MongoDB', percentage: 75 },
-      { name: 'RESTful APIs', percentage: 85 }
+      { name: 'Express.js', percentage: 85 },
+      { name: 'Node.js', percentage: 85 },
+      { name: 'MongoDB', percentage: 80 },
+      { name: 'Firebase', percentage: 85 },
+      { name: 'Supabase', percentage: 80 }
     ],
     tools: [
       { name: 'Git/GitHub', percentage: 90 },
       { name: 'VS Code', percentage: 95 },
-      { name: 'Docker', percentage: 70 },
-      { name: 'Postman', percentage: 85 },
-      { name: 'Figma', percentage: 75 }
+      { name: 'Figma', percentage: 85 },
+      { name: 'Vercel', percentage: 90 },
+      { name: 'Netlify', percentage: 85 }
     ]
   };
 
@@ -617,17 +777,17 @@ const handleSubmit = async (e) => {
             viewport={{ once: true }}
             className="col-span-full lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
           >
-            <h3 className="text-2xl font-bold mb-6">Passionate Developer & Problem Solver</h3>
+            <h3 className="text-2xl font-bold mb-6">Growing Developer with a Passion for Learning</h3>
             <div className="space-y-4 text-gray-600">
               <p>
-                With over 5 years of experience in web development, I've cultivated a deep understanding
-                of both front-end and back-end technologies. My approach combines technical expertise
-                with creative problem-solving to build scalable, user-centric applications.
+                As a dedicated web developer with 2 years of hands-on experience, I'm enthusiastically building my skills
+                in both front-end and back-end development. I love learning new technologies and applying them to create
+                useful applications that solve real problems.
               </p>
               <p>
-                I thrive on challenging projects that push the boundaries of what's possible in web
-                development, always staying current with the latest technologies and best practices
-                in the field.
+                I'm constantly improving my skills through practical projects and staying up-to-date with modern web
+                development practices. My goal is to grow into a well-rounded full-stack developer while delivering
+                quality solutions for my clients.
               </p>
             </div>
           </motion.div>
@@ -702,8 +862,8 @@ const handleSubmit = async (e) => {
   
 
        {/* Projects Section */}
-       <section id="projects" className="py-20 bg-white">
-        <div className="container mx-auto px-6">
+       <section id="projects" className="py-20 bg-white overflow-hidden">
+        <div className="container mx-auto px-6 overflow-hidden">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -720,11 +880,54 @@ const handleSubmit = async (e) => {
               </p>
             </div>
 
-            {/* Projects Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Projects Slider */}
+            <div className="relative w-full overflow-hidden max-w-[1000px] mx-auto px-4 py-12">
+              <Swiper
+                effect={'coverflow'}
+                grabCursor={true}
+                loop={true}
+                slidesPerView={'auto'}
+                centeredSlides={true}
+                coverflowEffect={{
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 2.5,
+                  slideShadows: true,
+                }}
+                speed={800}
+                pagination={{
+                  clickable: true,
+                  dynamicBullets: false,
+                  bulletActiveClass: 'swiper-pagination-bullet-active !bg-blue-600 !scale-100',
+                  bulletClass: 'swiper-pagination-bullet !w-8 !h-1 !rounded-full !bg-slate-200 !transition-all !duration-300',
+                }}
+                navigation={{
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                }}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+                className="project-swiper !pb-14 !overflow-visible"
+              >
               {projectsData.map((project, index) => (
-                <ProjectCard key={index} {...project} />
+                  <SwiperSlide key={index} className="h-auto">
+                    <ProjectCard 
+                      {...project} 
+                      onOpenGallery={({ images, title }) => setGalleryState({
+                        isOpen: true,
+                        images,
+                        title,
+                        currentImageIndex: 0
+                      })}
+                    />
+                  </SwiperSlide>
               ))}
+              </Swiper>
             </div>
           </motion.div>
         </div>
@@ -876,8 +1079,20 @@ const handleSubmit = async (e) => {
         onClose={() => setSelectedCert(null)}
         certification={selectedCert}
       />
+
+      {/* Image Gallery Modal */}
+      <AnimatePresence>
+        {galleryState.isOpen && (
+          <ImageGalleryModal
+            isOpen={galleryState.isOpen}
+            onClose={() => setGalleryState(prev => ({ ...prev, isOpen: false }))}
+            images={galleryState.images}
+            title={galleryState.title}
+            currentImageIndex={galleryState.currentImageIndex}
+          />
+        )}
+      </AnimatePresence>
     </div>
-    
   );
 };
 

@@ -2,6 +2,98 @@
   text-align: center;
 }
 
+/* Modern Minimalist Project Swiper Styles */
+.project-swiper {
+  position: relative;
+  padding: 4px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow: hidden;
+}
+
+.project-swiper .swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 400px;
+  opacity: 0.4;
+  transform: scale(0.9);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: grayscale(50%) brightness(0.8);
+}
+
+.project-swiper .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+  filter: grayscale(0%) brightness(1);
+}
+
+.project-swiper .swiper-slide-shadow-left,
+.project-swiper .swiper-slide-shadow-right {
+  background-image: none;
+}
+
+.project-swiper .swiper-pagination {
+  position: relative;
+  bottom: 0;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Custom navigation buttons */
+.project-swiper .swiper-button-next,
+.project-swiper .swiper-button-prev {
+  width: 3rem;
+  height: 3rem;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  color: #64748b;
+  transition: all 0.3s ease;
+  transform: translateY(-50%);
+}
+
+.project-swiper .swiper-button-next {
+  right: 1rem;
+}
+
+.project-swiper .swiper-button-prev {
+  left: 1rem;
+}
+
+.project-swiper .swiper-button-next:after,
+.project-swiper .swiper-button-prev:after {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.project-swiper .swiper-button-next:hover,
+.project-swiper .swiper-button-prev:hover {
+  background: #f8fafc;
+  color: #2563eb;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Project card styles */
+.project-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
